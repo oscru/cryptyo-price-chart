@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 // import { NativeBaseProvider, Text, Box, Button, Switch } from "native-base";
 import OnBoarding from "./components/onBoarding";
@@ -10,11 +10,31 @@ import Home from "./screens/Home";
 const AppStack = createNativeStackNavigator();
 
 export default function App() {
+  const [onboarded, setOnboarded] = useState();
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const onboarded = await AsyncStorage.getItem("ONBOARDED");
+      setOnboarded(JSON.parse(onboarded));
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <>
       <NavigationContainer>
-        <AppStack.Navigator initialRouteName="OnBoarding">
-          <AppStack.Screen name="OnBoarding" component={OnBoarding} />
+        <AppStack.Navigator
+          initialRouteName={onboarded ? "Home" : "OnBoarding"}
+        >
+          <AppStack.Screen
+            name="OnBoarding"
+            component={OnBoarding}
+            options={{ headerShown: false }}
+          />
           <AppStack.Screen
             name="Home"
             component={Home}

@@ -1,9 +1,19 @@
 import { react, useState, useRef } from "react";
 import { Text, View, FlatList, Animated } from "react-native";
 import FlatListItem from "./faltListItem";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { CommonActions } from "@react-navigation/native";
 
 const FlatListComponent = ({ navigation }) => {
-  // console.log(navigation);
+  const onPressFinish = async () => {
+    await AsyncStorage.setItem("ONBOARDED", "true");
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [{ name: "Home" }],
+      })
+    );
+  };
 
   const [currenIndex, setCurrentIndex] = useState(0);
 
@@ -38,7 +48,11 @@ const FlatListComponent = ({ navigation }) => {
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <FlatListItem content={item} navigation={navigation} />
+          <FlatListItem
+            content={item}
+            navigation={navigation}
+            onPressFinish={() => onPressFinish()}
+          />
         )}
         horizontal
         showsHorizontalScrollIndicator

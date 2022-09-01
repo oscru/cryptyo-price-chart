@@ -7,12 +7,11 @@ import {
   Button,
   useWindowDimensions,
 } from "react-native";
-import { StateContext } from "./consumer";
-import { CommonActions } from "@react-navigation/native";
+import { StateContext } from "./consumer"
 
 const Img = require("../assets/javaScript.png");
 
-const FlatListItem = ({ content, navigation }) => {
+const FlatListItem = ({ content, navigation, onPressFinish }) => {
   const { width } = useWindowDimensions();
   // const [state, setState] = useContext(StateContext);
   // console.log(props)
@@ -27,18 +26,7 @@ const FlatListItem = ({ content, navigation }) => {
         <Text style={styles.title}>{content.title}</Text>
         <Text style={styles.description}>{content.description}</Text>
         {content.id === 3 && (
-          <Button
-            title="Press me"
-            color="#f194ff"
-            onPress={() =>
-              navigation.dispatch(
-                CommonActions.reset({
-                  index: 1,
-                  routes: [{ name: "Home" }],
-                })
-              )
-            }
-          />
+          <Button title="Press me" color="#f194ff" onPress={onPressFinish} />
         )}
       </View>
     </View>
