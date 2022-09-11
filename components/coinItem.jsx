@@ -1,10 +1,10 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 
-const CoinItem = ({ data }) => {
+const CoinItem = ({ data, onPress }) => {
   const { item } = data;
 
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.imageContainer}>
         <Image style={styles.tinyLogo} source={{ uri: item.image }} />
         <View style={styles.nameContainer}>
@@ -13,7 +13,7 @@ const CoinItem = ({ data }) => {
         </View>
       </View>
       <Text style={styles.symbol}>${item.current_price}</Text>
-    </View>
+    </Pressable>
   );
 };
 

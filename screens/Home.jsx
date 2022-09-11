@@ -3,7 +3,7 @@ import { View, FlatList, Button, StyleSheet } from "react-native";
 import CoinItem from "../components/coinItem";
 import CustomButton from "../components/customButton";
 import { getActiveChildNavigationOptions } from "react-navigation";
-const Home = () => {
+const Home = ({ navigation }) => {
   const [coins, setCoins] = useState([]);
   const [items, setItems] = useState([]);
   const [itemsLimit, setItemsLimit] = useState(6);
@@ -26,6 +26,10 @@ const Home = () => {
     if (itemsLimit === 20) setItemsLimit(6);
   };
 
+  const onPress = (item) => {
+    navigation.navigate("CoinDetails", { ...item });
+  };
+
   const getCoins = () => {
     fetch(
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false"
@@ -41,7 +45,9 @@ const Home = () => {
       <FlatList
         data={items}
         style={styles.container}
-        renderItem={(item) => <CoinItem data={item} />}
+        renderItem={(item) => (
+          <CoinItem data={item} onPress={() => onPress(item)} />
+        )}
         keyExtractor={(item) => item.id}
       />
       <CustomButton

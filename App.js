@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NativeBaseProvider } from "native-base";
 
 import Home from "./screens/Home";
+import CoinDetails from "./screens/CoinDetails";
 
 const AppStack = createNativeStackNavigator();
 
@@ -38,6 +39,11 @@ export default function App() {
             name="Home"
             component={Home}
             options={{ headerShown: false }}
+          />
+          <AppStack.Screen
+            name="CoinDetails"
+            component={CoinDetails}
+            // options={{ headerShown: false }}
           />
         </AppStack.Navigator>
       </NavigationContainer>
