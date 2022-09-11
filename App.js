@@ -4,6 +4,7 @@ import { StyleSheet, View } from "react-native";
 import OnBoarding from "./components/onBoarding";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NativeBaseProvider } from "native-base";
 
 import Home from "./screens/Home";
 
@@ -25,11 +26,9 @@ export default function App() {
     }
   };
   return (
-    <>
+    <NativeBaseProvider>
       <NavigationContainer>
-        <AppStack.Navigator
-          initialRouteName={onboarded ? "Home" : "OnBoarding"}
-        >
+        <AppStack.Navigator initialRouteName={"Home"}>
           <AppStack.Screen
             name="OnBoarding"
             component={OnBoarding}
@@ -42,7 +41,7 @@ export default function App() {
           />
         </AppStack.Navigator>
       </NavigationContainer>
-    </>
+    </NativeBaseProvider>
   );
 }
 
